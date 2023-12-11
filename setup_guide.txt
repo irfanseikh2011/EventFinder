@@ -1,0 +1,28 @@
+Event Management App Setup Guide
+
+1. Access the Repository
+Clone or download the project repository to your local machine.
+
+2. Backend Setup
+2.1. Navigate to the Backend Directory
+	cd event-management-app/backend
+
+2.2. Install Backend Dependencies
+	npm install
+
+2.3. Start the Backend Server in Development Mode
+	npm start
+
+Note: The backend utilizes Nodemon, a utility that monitors for any changes in the source and automatically restarts the server. This makes the development phase more efficient.
+
+3. Frontend Setup
+3.1. Navigate to the Frontend Directory
+	cd event-management-app/frontend
+
+3.2. Install Frontend Dependencies
+	npm install --legacy-peer-deps
+
+Tip: The --legacy-peer-deps flag ensures smooth installation by disregarding any peer dependencies.
+
+3.3. Start the Frontend Module
+	npm start
