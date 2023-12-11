@@ -65,6 +65,22 @@ app.post('/sendReceipt', async (req, res) => {
       return res.status(404).json({ message: 'Ticket not found' });
   }
 
+  app.get('/proxy-geo', async (req, res) => {
+    try {
+      const country = req.query.country;
+      const username = "smi11"; 
+      const apiResponse = await axios.get(
+        `http://api.geonames.org/searchJSON?country=${country}&maxRows=25&username=${username}`
+      );
+  
+      const citiesData = apiResponse.data.geonames.map((city) => city.name);
+      const filteredCities = citiesData.filter((city) => city !== countryName);
+      res.json(filteredCities);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+      res.status(500).send('Error fetching cities');
+    }
+  });
 
 let mailOptions = {
     from: 'YOUR_EMAIL',
