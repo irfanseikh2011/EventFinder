@@ -5,6 +5,7 @@ const User = require("../models/User");
 const moment = require("moment");
 const Ticket = require("../models/Ticket");
 const { transporter } = require('./utils');
+const { default: axios } = require("axios");
 
 
 
@@ -30,6 +31,25 @@ router.post("/createevent", findUserByEmail, async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
     console.log(error);
+  }
+});
+
+
+router.get("/proxygeo", async (req, res) => {
+  try {
+    const country = req.query.country;
+    const countryName = req.query.countryName;
+    const username = "smi11"; 
+    const apiResponse = await axios.get(
+      `http://api.geonames.org/searchJSON?country=${country}&maxRows=25&username=${username}`
+    );
+
+    const citiesData = apiResponse.data.geonames.map((city) => city.name);
+    const filteredCities = citiesData.filter((city) => city !== countryName);
+    res.json(filteredCities);
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+    res.status(500).send('Error fetching cities'); 
   }
 });
 
